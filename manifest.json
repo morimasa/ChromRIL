@@ -1,0 +1,21 @@
+{
+   "name": "ChromeRIL.",
+   "description": "Read it later for Chrome",
+   "version": "0.1",
+   "permissions": [ "tabs", "http://readitlaterlist.com/*", "http://*/", "https://*/" ],
+   "update_url": "http://labs/~morimasa/chrome/doukaku/crx",
+   "background_page": "background.html",
+   "options_page": "options.html",
+   "icons": {
+      "16": "ril.favicon.png"
+   },
+   "browser_action": {
+       "default_title": "Reading list",
+       "popup": "popup.html"
+   },
+   "content_scripts": [ {
+       "js": [ "ril.js" ],
+       "matches": [ "http://*/*", "https://*/*" ],
+       "run_at": "document_start"
+   } ]
+}

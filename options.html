@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<!-- Copyright 2009 Google Inc. All Rights Reserved. -->
+<head>
+  <title>ChromeRIL Options</title>
+  <style type="text/css">
+    body {
+      font-family: arial, sans-serif;
+      font-size: smaller;
+    }
+
+    td {
+      padding: 5px;
+    }
+
+    .secondary td {
+      padding: 0px 5px;
+    }
+
+    .header {
+      font-size: 13px;
+      font-weight: bold;
+      border-bottom: solid 1px #ccc;
+      padding-bottom: 1px;
+    }
+
+    .label {
+      text-align: right;
+    }
+
+    .buttons {
+      text-align: right;
+      padding-top: 1em;
+    }
+  </style>
+  <script type="text/javascript" src="prefs.js"></script>
+  <script type="text/javascript">
+
+  // Saves options to localStorage.
+  function saveOptions() {
+      var formNode = document.getElementById('options-form');
+
+      var usernameNode = formNode['username'];
+      setUsername(usernameNode.value);
+
+      var passwordNode = formNode['password'];
+      setPassword(passwordNode.value);
+
+      var refreshIntervalNode = formNode['refresh-interval'];
+      var refreshInterval =
+          refreshIntervalNode.children[refreshIntervalNode.selectedIndex].value;
+      setRefreshInterval(refreshInterval);
+
+  // Update status to let user know options were saved.
+      var buttonNode = document.getElementById('save-button');
+      buttonNode.innerHTML = 'Saved';
+      buttonNode.disabled = true;
+      setTimeout(function() {
+          buttonNode.innerHTML = 'Save';
+          buttonNode.disabled = false;
+      }, 750);
+  }
+
+  function restoreOptions() {
+    var formNode = document.getElementById('options-form');
+
+    var username = getUsername();
+    var usernameNode = formNode['username'];
+    usernameNode.value = username;
+
+    var password = getPassword();
+    var passwordNode = formNode['password'];
+    passwordNode.value = password;
+
+    var refreshIterval = getRefreshInterval();
+    var refreshIntervalNode = formNode['refresh-interval'];
+    for (var i = 0, refreshValueNode;
+         refreshValueNode = refreshIntervalNode[i];
+         i++) {
+      if (refreshValueNode.value == refreshIterval) {
+        refreshValueNode.selected = 'true';
+        break;
+      }
+    }
+  }
+  </script>
+</head>
+
+<body onload="restoreOptions()">
+
+<form id="options-form">
+
+<table>
+  <tr>
+    <td class="header" colspan="2">
+      ChromeRIL Options
+    </td>
+  </tr>
+  <tr>
+    <td class="label">Account:</td>
+    <td>
+      <label>
+        Username:
+        <input type="text" name="username" value="">
+      </label>
+    </td>
+  </tr>
+  <tr class="secondary">
+    <td>&nbsp;</td>
+    <td>
+      <label>
+        Password:
+        <input type="password" name="password" value="">
+      </label>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">Update every:</td>
+    <td>
+      <select name="refresh-interval">
+        <option value="300000">5 minutes</option>
+        <option value="600000">10 minutes</option>
+        <option value="900000">15 minutes</option>
+        <option value="1800000">30 minutes</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="buttons" colspan="2">
+      <button onclick="saveOptions()" id="save-button">Save</button>
+    </td>
+  </tr>
+</table>
+
+</form>
+
+</body>
+</html>

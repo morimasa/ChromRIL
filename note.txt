@@ -1,0 +1,5 @@
+readinglist bookmarklet
+
+javascript:try {window.open('http://readitlaterlist.com/unread?bl=1','rillist','scrollbars=1,toolbar=0,status=1,width=380,height=800');}catch(e) { }void(0);
+
+API Key: 67eg0db0p61e6n683eT3c55obyA8l40V
